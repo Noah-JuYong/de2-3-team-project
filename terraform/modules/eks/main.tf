@@ -10,8 +10,8 @@ resource "aws_iam_role" "eks_cluster" {
     Version = "2012-10-17"
     Statement = [
       {
-        Action    = "sts:AssumeRole"
-        Effect    = "Allow"
+        Action = "sts:AssumeRole"
+        Effect = "Allow"
         Principal = {
           Service = "eks.amazonaws.com"
         }
@@ -58,8 +58,8 @@ resource "aws_iam_role" "node_group" {
     Version = "2012-10-17"
     Statement = [
       {
-        Action    = "sts:AssumeRole"
-        Effect    = "Allow"
+        Action = "sts:AssumeRole"
+        Effect = "Allow"
         Principal = {
           Service = "ec2.amazonaws.com"
         }
@@ -100,7 +100,7 @@ resource "aws_eks_node_group" "main" {
   scaling_config {
     min_size     = var.node_auto_scaling.min_size
     max_size     = var.node_auto_scaling.max_size
-    desired_size   = var.node_auto_scaling.desired_size
+    desired_size = var.node_auto_scaling.desired_size
   }
 
   instance_types = [var.node_instance_type]

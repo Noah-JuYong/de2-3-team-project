@@ -40,4 +40,4 @@ terraform.rc
 # *.dot
 
 # 선택 사항: Terraform 구성을 파괴하기 전에 저장된 plan 파일을 제외하려면 아래 줄의 주석을 해제합니다.
-# planout
+# planoutnode_modules/

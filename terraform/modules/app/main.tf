@@ -1,8 +1,7 @@
 # ========================================
-# App Module - Deployment, Service, Ingress
+# App Module - Kubernetes Deployment and Service
 # ========================================
 
-# Kubernetes Deployment
 resource "kubernetes_deployment" "app" {
   metadata {
     name      = "${var.environment}-web-app"
@@ -68,49 +67,47 @@ resource "kubernetes_deployment" "app" {
             initial_delay_seconds = 5
             period_seconds        = 5
           }
-        env {
-          name  = "DB_HOST"
-          value = var.db_host
-        }
 
-        env {
-          name  = "DB_PORT"
-          value = var.db_port
-        }
+          env {
+            name  = "DB_HOST"
+            value = var.db_host
+          }
 
-        env {
-          name  = "DB_NAME"
-          value = var.db_name
-        }
+          env {
+            name  = "DB_PORT"
+            value = tostring(var.db_port)
+          }
 
-        env {
-          name  = "DB_USER"
-          value     = var.db_user
-          sensitive = true
-        }
+          env {
+            name  = "DB_NAME"
+            value = var.db_name
+          }
 
-        env {
-          name  = "DB_PASSWORD"
-          value     = var.db_password
-          sensitive = true
-        }
+          env {
+            name  = "DB_USER"
+            value = var.db_user
+          }
 
-        env {
-          name  = "S3_BUCKET"
-          value = var.s3_bucket_name
-        }
+          env {
+            name  = "DB_PASSWORD"
+            value = var.db_password
+          }
 
-        env {
-          name  = "ECR_REPOSITORY"
-          value = var.ecr_repository
+          env {
+            name  = "S3_BUCKET"
+            value = var.s3_bucket_name
+          }
+
+          env {
+            name  = "ECR_REPOSITORY"
+            value = var.ecr_repository
+          }
         }
       }
     }
   }
 }
-}
 
-# Kubernetes Service
 resource "kubernetes_service" "app" {
   metadata {
     name      = "${var.environment}-web-app-service"
@@ -135,29 +132,3 @@ resource "kubernetes_service" "app" {
     type = "LoadBalancer"
   }
 }
-
-# ========================================
-# Output - App Module
-# ========================================
-
-output "service_name" {
-  description = "Kubernetes Service Name"
-  value       = kubernetes_service.app.metadata[0].name
-}
-
-output "service_port" {
-  description = "Kubernetes Service Port"
-  value       = kubernetes_service.spec[0].port[0].port
-}
-
-output "deployment_name" {
-  description = "Kubernetes Deployment Name"
-  value       = kubernetes_deployment.app.metadata[0].name
-}
-
-output "service_type" {
-  description = "Kubernetes Service Type"
-  value       = kubernetes_service.spec[0].type
-}
-
-

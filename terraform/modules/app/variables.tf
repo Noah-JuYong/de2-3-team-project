@@ -2,6 +2,11 @@
 # App Module - Variables
 # ========================================
 
+variable "environment" {
+  description = "Deployment environment (e.g., dev, staging, prod)"
+  type        = string
+}
+
 variable "cluster_name" {
   description = "EKS cluster name"
   type        = string
@@ -80,4 +85,3 @@ variable "ecr_repository" {
   description = "ECR repository name for Docker images"
   type        = string
 }
-
