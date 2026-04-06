@@ -54,7 +54,7 @@ resource "aws_subnet" "private" {
 resource "aws_eip" "nat" {
   count = length(var.availability_zones)
 
-  domain  = "vpc"
+  domain = "vpc"
 
   tags = {
     Name        = "${var.environment}-nat-${var.availability_zones[count.index]}"
@@ -158,7 +158,7 @@ resource "aws_security_group" "bastion" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]  # 주용님의 IP 로 제한 권장
+    cidr_blocks = ["1.2.3.4/32"] # TODO: Replace with your actual IP address
   }
 
   egress {

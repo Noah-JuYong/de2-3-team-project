@@ -9,5 +9,5 @@ output "s3_bucket_name" {
 
 output "ecr_repository_url" {
   description = "ECR Repository URL"
-  value       = "${aws_ecr_repository.main.repository_url}"
+  value       = aws_ecr_repository.main.repository_url
 }

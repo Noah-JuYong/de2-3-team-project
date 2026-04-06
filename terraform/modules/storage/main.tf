@@ -51,10 +51,19 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "main" {
   }
 }
 
+# S3 Bucket Public Access Block
+resource "aws_s3_bucket_public_access_block" "main" {
+  bucket = aws_s3_bucket.main.id
+
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}
 # ECR Repository for Docker images
 resource "aws_ecr_repository" "main" {
   name                 = var.ecr_repository
-  image_tag_mutability = "MUTABLE"
+  image_tag_mutability = "IMMUTABLE"
 
   image_scanning_configuration {
     scan_on_push = true

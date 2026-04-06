@@ -68,46 +68,46 @@ resource "kubernetes_deployment" "app" {
             initial_delay_seconds = 5
             period_seconds        = 5
           }
-        env {
-          name  = "DB_HOST"
-          value = var.db_host
-        }
+          env {
+            name  = "DB_HOST"
+            value = var.db_host
+          }
 
-        env {
-          name  = "DB_PORT"
-          value = var.db_port
-        }
+          env {
+            name  = "DB_PORT"
+            value = var.db_port
+          }
 
-        env {
-          name  = "DB_NAME"
-          value = var.db_name
-        }
+          env {
+            name  = "DB_NAME"
+            value = var.db_name
+          }
 
-        env {
-          name  = "DB_USER"
-          value     = var.db_user
-          sensitive = true
-        }
+          env {
+            name      = "DB_USER"
+            value     = var.db_user
+            sensitive = true
+          }
 
-        env {
-          name  = "DB_PASSWORD"
-          value     = var.db_password
-          sensitive = true
-        }
+          env {
+            name      = "DB_PASSWORD"
+            value     = var.db_password
+            sensitive = true
+          }
 
-        env {
-          name  = "S3_BUCKET"
-          value = var.s3_bucket_name
-        }
+          env {
+            name  = "S3_BUCKET"
+            value = var.s3_bucket_name
+          }
 
-        env {
-          name  = "ECR_REPOSITORY"
-          value = var.ecr_repository
+          env {
+            name  = "ECR_REPOSITORY"
+            value = var.ecr_repository
+          }
         }
       }
     }
   }
-}
 }
 
 # Kubernetes Service

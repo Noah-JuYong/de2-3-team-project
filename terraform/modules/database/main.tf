@@ -24,18 +24,18 @@ resource "aws_db_instance" "main" {
   username = var.db_admin_user
   password = var.db_admin_password
 
-  allocated_storage     = 20
-  storage_encrypted     = true
-  multi_az              = true
-  db_subnet_group_name  = aws_db_subnet_group.main.name
+  allocated_storage    = 20
+  storage_encrypted    = true
+  multi_az             = true
+  db_subnet_group_name = aws_db_subnet_group.main.name
 
   vpc_security_group_ids = [var.rds_security_group_id]
 
   backup_retention_period = 7
-  backup_window          = "03:00-04:00"
-  maintenance_window     = "Mon:04:00-Mon:05:00"
+  backup_window           = "03:00-04:00"
+  maintenance_window      = "Mon:04:00-Mon:05:00"
 
-  skip_final_snapshot = false
+  skip_final_snapshot       = false
   final_snapshot_identifier = "${var.environment}-final-snapshot"
 
   tags = {

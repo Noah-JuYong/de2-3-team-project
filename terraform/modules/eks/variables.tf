@@ -25,11 +25,6 @@ variable "private_subnet_ids" {
   type        = list(string)
 }
 
-variable "eks_node_security_group_id" {
-  description = "EKS Node Security Group ID (from network module)"
-  type        = string
-}
-
 variable "node_instance_type" {
   description = "EKS node instance type (m7i-flex.large)"
   type        = string
@@ -46,7 +41,7 @@ variable "node_auto_scaling" {
   default = {
     min_size     = 2
     max_size     = 10
-    desired_size   = 2
+    desired_size = 2
   }
 }
 
