@@ -15,7 +15,7 @@ variable "environment" {
 }
 
 variable "db_admin_password" {
-  description = "RDS database admin password"
+  description = "RDS database admin password (must be provided via CLI or environment variable)"
   type        = string
   sensitive   = true
 }
@@ -94,7 +94,32 @@ variable "ecr_repository" {
   default     = "shop-eks-app"
 }
 
-variable "eks_node_security_group_id" {
-  description = "Security group ID for EKS nodes (from network module)"
+# ========================================
+# App Module Variables (Optional)
+# ========================================
+variable "image_url" {
+  description = "Docker image URL for the application (e.g., from ECR)"
   type        = string
+  default     = ""
 }
+
+variable "app_replicas" {
+  description = "Number of app replicas"
+  type        = number
+  default     = 2
+}
+
+variable "app_cpu" {
+  description = "CPU request/limit for the app (e.g., '250m' or '250m/500m')"
+  type        = string
+  default     = "250m"
+}
+
+variable "app_memory" {
+  description = "Memory request/limit for the app (e.g., '512Mi' or '512Mi/1Gi')"
+  type        = string
+  default     = "512Mi"
+}
+
+# [삭제] eks_node_security_group_id 제거 - 순환 참조를 유발하므로 삭제합니다.
+

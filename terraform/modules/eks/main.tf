@@ -10,6 +10,7 @@ resource "aws_iam_role" "eks_cluster" {
     Version = "2012-10-17"
     Statement = [
       {
+        Action    = "sts:AssumeRole"
         Effect    = "Allow"
         Principal = {
           Service = "eks.amazonaws.com"
@@ -57,6 +58,7 @@ resource "aws_iam_role" "node_group" {
     Version = "2012-10-17"
     Statement = [
       {
+        Action    = "sts:AssumeRole"
         Effect    = "Allow"
         Principal = {
           Service = "ec2.amazonaws.com"

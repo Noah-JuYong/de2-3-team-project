@@ -7,10 +7,11 @@ output "cluster_endpoint" {
   value       = module.eks.cluster_endpoint
 }
 
-output "cluster_certificate_authority_data" {
+output "cluster_certificate_authority" {
   description = "EKS Cluster Certificate Authority"
-  value       = module.eks.cluster_certificate_authority_data
+  value       = module.eks.cluster_certificate_authority
 }
+
 
 output "vpc_id" {
   description = "VPC ID"
@@ -36,3 +37,4 @@ output "ecr_repository_url" {
   description = "ECR Repository URL"
   value       = module.storage.ecr_repository_url
 }
+

@@ -13,32 +13,6 @@ resource "aws_db_subnet_group" "main" {
   }
 }
 
-# RDS Security Group (allows only EKS nodes to access)
-resource "aws_security_group" "rds" {
-  name        = "${var.environment}-rds-sg"
-  description = "Security group for RDS MySQL"
-  vpc_id      = var.vpc_id
-
-  ingress {
-    from_port       = 3306
-    to_port         = 3306
-    protocol        = "tcp"
-    security_groups = [var.eks_node_security_group_id]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  tags = {
-    Name        = "${var.environment}-rds-sg"
-    Environment = var.environment
-  }
-}
-
 # RDS Instance
 resource "aws_db_instance" "main" {
   identifier     = "${var.environment}-mysql"
@@ -55,7 +29,7 @@ resource "aws_db_instance" "main" {
   multi_az              = true
   db_subnet_group_name  = aws_db_subnet_group.main.name
 
-  vpc_security_group_ids = [aws_security_group.rds.id]
+  vpc_security_group_ids = [var.rds_security_group_id]
 
   backup_retention_period = 7
   backup_window          = "03:00-04:00"
@@ -68,9 +42,4 @@ resource "aws_db_instance" "main" {
     Name        = "${var.environment}-mysql"
     Environment = var.environment
   }
-}
-
-variable "eks_node_security_group_id" {
-  description = "EKS Node Security Group ID (from network module)"
-  type        = string
 }
